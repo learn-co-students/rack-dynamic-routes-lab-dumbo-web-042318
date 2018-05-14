@@ -1,0 +1,4 @@
+Notes of this assignment:
+    -In application.rb
+        -line 9 uses a regex to check to see if the url path contains "items", which is a dynamic way to see if a user is looking for "items"...otherwise you'd have to create so many "if" statements to cover the possible resource paths.
+        -line 11 takes the req path and splits it into an array and takes the last item and saves it to a variable, this is the title:name of the item
