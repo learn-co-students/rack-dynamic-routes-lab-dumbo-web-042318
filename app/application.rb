@@ -1,6 +1,6 @@
 class Application
 
-    @@items = []
+    @@items = [Item.new("ice-cream", 3.99), Item.new("tacos", 1.99)]
 
     def call(env)
         resp = Rack::Response.new
@@ -14,13 +14,14 @@ class Application
                 item_instance.name == item_title
             end 
 
-            if find_helper(@@items, item_title)
-                item_instance = find_helper(@@items, item_title)
+            item_instance = find_helper(@@items, item_title)
+
+            if item_instance
                 resp.status = 200
-                resp.write "#{item_instance.price}"
+                resp.write "#{item_instance.name} cost #{item_instance.price}"
             else
-                resp.write "Item not found"
                 resp.status = 400
+                resp.write "Item not found"
             end
 
         
@@ -36,8 +37,8 @@ class Application
     end 
 
     def find_helper(item_collection, item_name)
-        item_collection.find do |x|
-            x.name == item_name
+        item_collection.find do |item_instance|
+            item_instance.name == item_name
         end 
     end 
 
